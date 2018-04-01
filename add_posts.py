@@ -1,7 +1,7 @@
 import csv
 import datetime
 
-from db import db_session, post, User
+from db import db_session, Post, User
 
 post_list = []
 u = User
