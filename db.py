@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, ForeignKey
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 engine = create_engine('sqlite:///mybase.db')
@@ -15,6 +15,7 @@ class User(Base):
     first_name = Column(String(50))
     last_name = Column(String(50))
     email = Column(String(120), unique=True)
+    posts = relationship('Post', backref='author')
 
     def __init__(self, first_name=None, last_name=None, email=None):
         self.first_name = first_name
@@ -33,7 +34,7 @@ class Post(Base):
     content = Column(Text)
     user_id = Column(Integer, ForeignKey('users.id'))
 
-def __init__(self, title=None, image=None, published=None, content=None, user_id=None):
+    def __init__(self, title=None, image=None, published=None, content=None, user_id=None):
         self.title = title
         self.image = image
         self.published = published
